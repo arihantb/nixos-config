@@ -6,17 +6,16 @@
   ...
 }:
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    inputs.seanime.nixosModules.seanime
+  ];
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs username host; };
     users.${username} = {
-      imports =
-        if (host == "desktop") then
-          [ ./../home/default.desktop.nix ]
-        else
-          [ ./../home ];
+      imports = if (host == "desktop") then [ ./../home/default.desktop.nix ] else [ ./../home ];
       home.username = "${username}";
       home.homeDirectory = "/home/${username}";
       home.stateVersion = "24.05";

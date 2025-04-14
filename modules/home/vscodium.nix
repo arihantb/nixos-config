@@ -1,15 +1,13 @@
 { pkgs, ... }:
 let
-  jonathanharty.gruvbox-material-icon-theme =
-    pkgs.vscode-utils.buildVscodeMarketplaceExtension
-      {
-        mktplcRef = {
-          name = "gruvbox-material-icon-theme";
-          publisher = "JonathanHarty";
-          version = "1.1.5";
-          hash = "sha256-86UWUuWKT6adx4hw4OJw3cSZxWZKLH4uLTO+Ssg75gY=";
-        };
-      };
+  jonathanharty.gruvbox-material-icon-theme = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "gruvbox-material-icon-theme";
+      publisher = "JonathanHarty";
+      version = "1.1.5";
+      hash = "sha256-86UWUuWKT6adx4hw4OJw3cSZxWZKLH4uLTO+Ssg75gY=";
+    };
+  };
   ziglang_vscode-zig = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
       name = "vscode-zig";
@@ -49,7 +47,6 @@ in
         "update.mode" = "none";
         "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update
         "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
-
         "window.menuBarVisibility" = "toggle";
         "editor.fontFamily" = "'Maple Mono', 'SymbolsNerdFont', 'monospace', monospace";
         "terminal.integrated.fontFamily" = "'Maple Mono', 'SymbolsNerdFont'";
@@ -60,14 +57,12 @@ in
         "vsicons.dontShowNewVersionMessage" = true;
         "explorer.confirmDragAndDrop" = false;
         "editor.fontLigatures" = true;
-        "editor.minimap.enabled" = false;
+        "editor.minimap.enabled" = true;
         "workbench.startupEditor" = "none";
-
         "editor.formatOnSave" = true;
         "editor.formatOnType" = true;
         "editor.formatOnPaste" = true;
         "editor.inlayHints.enabled" = "off";
-
         "workbench.layoutControl.type" = "menu";
         "workbench.editor.limit.enabled" = true;
         "workbench.editor.limit.value" = 10;
@@ -75,16 +70,15 @@ in
         "workbench.editor.showTabs" = "none";
         "files.autoSave" = "onWindowChange";
         "explorer.openEditors.visible" = 0;
-        "breadcrumbs.enabled" = false;
+        "breadcrumbs.enabled" = true;
         "editor.renderControlCharacters" = false;
         "workbench.activityBar.location" = "hidden";
-        "workbench.statusBar.visible" = false;
+        "workbench.statusBar.visible" = true;
         "editor.scrollbar.verticalScrollbarSize" = 2;
         "editor.scrollbar.horizontalScrollbarSize" = 2;
         "editor.scrollbar.vertical" = "hidden";
         "editor.scrollbar.horizontal" = "hidden";
-        "workbench.layoutControl.enabled" = false;
-
+        "workbench.layoutControl.enabled" = true;
         "editor.mouseWheelZoom" = true;
 
         # C/C++
