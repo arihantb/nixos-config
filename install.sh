@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 init() {
+    # Variables
+    CURRENT_USERNAME=`id -un`
+    CURRENT_HOSTNAME=`hostname`
     # Colors
     NORMAL=$(tput sgr0)
     WHITE=$(tput setaf 7)
@@ -54,10 +57,15 @@ print_header() {
 }
 
 get_username() {
-    echo -en "Enter your$GREEN username$NORMAL: $YELLOW"
+    echo -en "Enter your$GREEN username$NORMAL [${YELLOW}${CURRENT_USERNAME}${NORMAL}]: $YELLOW"
     safe_read username
+
+    if [[ -z "$username" ]]; then
+        username="$CURRENT_USERNAME"
+    fi
+
     echo -en "$NORMAL"
-    echo -en "Use$YELLOW "$username"$NORMAL as ${GREEN}username$NORMAL?"
+    echo -en "Use$YELLOW "$username"$NORMAL as ${GREEN}username$NORMAL? "
     confirm
 }
 
@@ -67,10 +75,15 @@ set_username() {
 }
 
 get_host() {
-    echo -en "Enter your$GREEN hostname$NORMAL: $YELLOW"
+    echo -en "Enter your$GREEN hostname$NORMAL [${YELLOW}${CURRENT_HOSTNAME}${NORMAL}]: $YELLOW"
     safe_read hostname
+
+    if [[ -z "$hostname" ]]; then
+        hostname="$CURRENT_HOSTNAME"
+    fi
+
     echo -en "$NORMAL"
-    echo -en "Use $YELLOW "$hostname"$NORMAL as ${GREEN}hostname$NORMAL?"
+    echo -en "Use $YELLOW "$hostname"$NORMAL as ${GREEN}hostname$NORMAL? "
     confirm
 }
 
@@ -93,7 +106,6 @@ copy_wallpapers() {
     cp -r wallpapers/wallpaper.png ~/Pictures/wallpapers
     cp -r wallpapers/otherWallpaper/gruvbox/* ~/Pictures/wallpapers/others/
     cp -r wallpapers/otherWallpaper/nixos/* ~/Pictures/wallpapers/others/
-
 }
 
 get_default_conf() {
@@ -102,11 +114,14 @@ get_default_conf() {
     mkdir -p hosts/${hostname}
     cp /etc/nixos/hardware-configuration.nix hosts/${hostname}/hardware-configuration.nix
     cp /etc/nixos/configuration.nix hosts/${hostname}/configuration.nix
+
+    # File Not Found Error Fix
+    git add .
 }
 
 get_cores() {
     max_cores=$(nproc --all)
-    echo -e "Enter the number of cores to use (1-$max_cores). (${GREEN}less cores${NORMAL}: slow but sufficient RAM, ${RED}more cores${NORMAL}: fast but may overflow RAM):"
+    echo -en "Enter the number of cores to use (1-$max_cores). (${GREEN}less cores${NORMAL}: slow but sufficient RAM, ${RED}more cores${NORMAL}: fast but may overflow RAM): "
     safe_read cores
 
     if ! [[ "$cores" =~ ^[0-9]+$ ]]; then
@@ -129,7 +144,7 @@ install() {
     copy_wallpapers
     get_default_conf
 
-    echo -en "You are about to start the system build, do you want to process?"
+    echo -en "You are about to start the system build, do you want to process? "
     confirm
 
     get_cores
@@ -139,7 +154,7 @@ install() {
 }
 
 restart() {
-    echo -en "\n${GREEN}Installation Complete!${NORMAL} Reboot Now?"
+    echo -en "\n${GREEN}Installation Complete!${NORMAL} Reboot Now? "
     echo -en "[${GREEN}y${NORMAL}/${RED}n${NORMAL}]: "
     safe_read -n 1 -r
     echo
