@@ -1,5 +1,5 @@
 {
-  description = "arihant's NixOS Configuration";
+  description = "${username}'s NixOS Configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -45,7 +45,7 @@
   outputs =
     { nixpkgs, self, ... }@inputs:
     let
-      username = "arihant";
+      username = "${username}";
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
@@ -55,11 +55,11 @@
     in
     {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        ${hostname} = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/nixos/configuration.nix ];
+          modules = [ ./hosts/${hostname}/configuration.nix ];
           specialArgs = {
-            host = "nixos";
+            host = "${hostname}";
             inherit self inputs username;
           };
         };
