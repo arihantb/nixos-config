@@ -2,8 +2,7 @@
 
 init() {
     # Vars
-    CURRENT_USERNAME='frostphoenix'
-
+    CURRENT_USERNAME='arihant'
     # Colors
     NORMAL=$(tput sgr0)
     WHITE=$(tput setaf 7)
@@ -28,12 +27,7 @@ confirm() {
 }
 
 print_header() {
-    echo -E "$CYAN
-      _____              _   ____  _                      _        
-     |  ___| __ ___  ___| |_|  _ \| |__   ___   ___ _ __ (_)_  __  
-     | |_ | '__/ _ \/ __| __| |_) | '_ \ / _ \ / _ \ '_ \| \ \/ /  
-     |  _|| | | (_) \__ \ |_|  __/| | | | (_) |  __/ | | | |>  <   
-     |_|  |_|  \___/|___/\__|_|   |_| |_|\___/ \___|_| |_|_/_/\_\  
+    echo -E "$CYAN 
      _   _ _       ___        ___           _        _ _           
     | \ | (_)_  __/ _ \ ___  |_ _|_ __  ___| |_ __ _| | | ___ _ __ 
     |  \| | \ \/ / | | / __|  | || '_ \/ __| __/ _' | | |/ _ \ '__|
@@ -41,7 +35,7 @@ print_header() {
     |_| \_|_/_/\_\\\\___/|___/ |___|_| |_|___/\__\__,_|_|_|\___|_| 
 
 
-                  $BLUE https://github.com/Frost-Phoenix $RED 
+                  $BLUE https://github.com/arihantb $RED 
       ! To make sure everything runs correctly DONT run as root ! $GREEN
                         -> '"./install.sh"' $NORMAL
 
@@ -49,10 +43,10 @@ print_header() {
 }
 
 get_username() {
-    echo -en "Enter your$GREEN username$NORMAL : $YELLOW"
+    echo -en "Enter your$GREEN username$NORMAL: $YELLOW"
     read username
     echo -en "$NORMAL"
-    echo -en "Use$YELLOW "$username"$NORMAL as ${GREEN}username${NORMAL} ? "
+    echo -en "Use$YELLOW "$username"$NORMAL as ${GREEN}username$NORMAL?"
     confirm
 }
 
@@ -62,35 +56,11 @@ set_username() {
 }
 
 get_host() {
-    echo -en "Choose a ${GREEN}host${NORMAL} - [${YELLOW}D${NORMAL}]esktop, [${YELLOW}L${NORMAL}]aptop or [${YELLOW}V${NORMAL}]irtual machine: "
-    read -n 1 -r
-    echo
-
-    if [[ $REPLY =~ ^[Dd]$ ]]; then
-        HOST='desktop'
-    elif [[ $REPLY =~ ^[Ll]$ ]]; then
-        HOST='laptop'
-    elif [[ $REPLY =~ ^[Vv]$ ]]; then
-        HOST='vm'
-    else
-        echo "Invalid choice. Please select 'D' for desktop, 'L' for laptop or 'V' for virtual machine."
-        exit 1
-    fi
-
+    echo -en "Enter your$GREEN hostname$NORMAL: $YELLOW"
+    read hostname
     echo -en "$NORMAL"
-    echo -en "Use the$YELLOW "$HOST"$NORMAL ${GREEN}host${NORMAL} ? "
+    echo -en "Use $YELLOW "$hostname"$NORMAL as ${GREEN}hostname$NORMAL?"
     confirm
-}
-
-aseprite() {
-    # whether to install aseprite or not
-    echo -en "Disable ${GREEN}Aseprite${NORMAL} (faster install) ? [${GREEN}y${NORMAL}/${RED}n${NORMAL}]: "
-    read -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        return
-    fi
-    sed -i '3s/  /  # /' modules/home/aseprite/aseprite.nix
 }
 
 install() {
@@ -116,12 +86,28 @@ install() {
     cp /etc/nixos/hardware-configuration.nix hosts/${HOST}/hardware-configuration.nix
 
     # Last Confirmation
-    echo -en "You are about to start the system build, do you want to process ? "
+    echo -en "You are about to start the system build, do you want to process?"
     confirm
+
+    # Confirm the cores to use
+    max_cores=$(nproc --all)
+    echo -e "Enter the number of cores to use (1-$max_cores). (${GREEN}less cores${NORMAL}: slow but sufficient RAM, ${RED}more cores${NORMAL}: fast but may overflow RAM):"
+    read cores
+
+    # Ensure input is a number
+    if ! [[ "$cores" =~ ^[0-9]+$ ]]; then
+        echo "Please enter a valid number."
+        exit 1
+    fi
+
+    if [[ "$cores" -lt 1 || "$cores" -gt "$max_cores" ]]; then
+        echo -e "Incorrect number of cores. Please try again."
+        exit 1
+    fi
 
     # Build the system (flakes + home manager)
     echo -e "\nBuilding the system...\n"
-    sudo nixos-rebuild switch --flake .#${HOST} --cores 4
+    sudo nixos-rebuild switch --flake .#${HOST} --cores $cores
 }
 
 main() {
@@ -133,7 +119,6 @@ main() {
     set_username
     get_host
 
-    aseprite
     install
 }
 

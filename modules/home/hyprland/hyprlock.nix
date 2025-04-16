@@ -56,7 +56,7 @@ in
     # USER-BOX
     shape {
       monitor =
-      size = 300, 50
+      size = 330, 55
       color = rgba(102, 92, 84, .33)
       rounding = 10
       border_size = 0
@@ -83,7 +83,7 @@ in
     # INPUT FIELD
     input-field {
       monitor =
-      size = 300, 50
+      size = 330, 55
       outline_thickness = 1
       rounding = 10
       dots_size = 0.25 # Scale of input-field height, 0.2 - 0.8

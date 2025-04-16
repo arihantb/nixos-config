@@ -37,7 +37,7 @@ in
     modules-right = [
       "cpu"
       "memory"
-      (if (host == "desktop") then "disk" else "")
+      "disk"
       "pulseaudio"
       "network"
       "battery"
@@ -50,10 +50,10 @@ in
           today = "<span color='#98971A'><b>{}</b></span>";
         };
       };
-      format = "  {:%H:%M}";
+      format = "  {:%h:%M:%s}";
       tooltip = "true";
-      tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-      format-alt = "  {:%d/%m}";
+      tooltip-format = "<tt><small>{calendar}</small></tt>";
+      format-alt = "  {:%d-%mmm-%Y}";
     };
     "hyprland/workspaces" = {
       active-only = false;
@@ -142,15 +142,13 @@ in
     };
     "hyprland/language" = {
       format = "<span foreground='#FABD2F'> </span> {}";
-      format-fr = "FR";
       format-en = "US";
     };
     "custom/launcher" = {
       format = "";
-      on-click = "random-wallpaper";
-      on-click-right = "rofi -show drun";
+      on-click = "rofi -show drun";
       tooltip = "true";
-      tooltip-format = "Random Wallpaper";
+      tooltip-format = "Apps Menu";
     };
     "custom/notification" = {
       tooltip = false;

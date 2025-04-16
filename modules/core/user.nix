@@ -8,7 +8,6 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.seanime.nixosModules.seanime
   ];
   home-manager = {
     useUserPackages = true;
@@ -32,5 +31,6 @@
     ];
     shell = pkgs.zsh;
   };
+
   nix.settings.allowed-users = [ "${username}" ];
 }
