@@ -145,12 +145,26 @@ get_opts() {
     fi
 }
 
+setup_graphics() {
+    ./modules/home/scripts/scripts/gpu-bus-id.sh > ./modules/core/gpu-bus-id.nix
+}
+
 install() {
     echo -e "\n${RED}START INSTALL PHASE${NORMAL}\n"
 
     create_directories
     copy_wallpapers
     get_default_conf
+
+    echo -en "Do you wish to setup nvidia/amd graphics settings? "
+    echo -en "[${GREEN}y${NORMAL}/${RED}n${NORMAL}]: "
+    safe_read -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        setup_graphics
+    else
+        sed -i -e "s/\.\/nvidia\.nix/# \.\/nvidia\.nix/g" ./modules/core/default.nix
+    fi
 
     echo -en "You are about to start the system build, do you want to process? "
     confirm
