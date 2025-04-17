@@ -109,17 +109,16 @@ copy_wallpapers() {
 }
 
 get_default_conf() {
-    echo -e "Copying ${MAGENTA}/etc/nixos/hardware-configuration.nix${NORMAL} to ${MAGENTA}./hosts/${hostname}/${NORMAL}"
-    echo -e "Copying ${MAGENTA}/etc/nixos/configuration.nix${NORMAL} to ${MAGENTA}./hosts/${hostname}/${NORMAL}\n"
+    echo -e "Copying ${MAGENTA}/etc/nixos/hardware-configuration.nix${NORMAL} to ${MAGENTA}./hosts/${hostname}/${NORMAL}\n"
     mkdir -p hosts/${hostname}
     cp /etc/nixos/hardware-configuration.nix hosts/${hostname}/hardware-configuration.nix
-    cp /etc/nixos/configuration.nix hosts/${hostname}/configuration.nix
+    cp hosts/configuration.nix hosts/${hostname}/configuration.nix
 
     # File Not Found Error Fix
     git add .
 }
 
-get_cores() {
+get_opts() {
     max_cores=$(nproc --all)
     echo -en "Enter the number of cores to use (1-$max_cores). (${GREEN}less cores${NORMAL}: slow but sufficient RAM, ${RED}more cores${NORMAL}: fast but may overflow RAM): "
     safe_read cores
@@ -135,6 +134,15 @@ get_cores() {
         reset
         exit 1
     fi
+
+    echo -en "Enter the number of max-jobs to use (1-6): "
+    safe_read max_jobs
+
+    if [[ "$max_jobs" -lt 1 || "$max_jobs" -gt 6 ]]; then
+        echo -e "Incorrect number of max-jobs. Please try again."
+        reset
+        exit 1
+    fi
 }
 
 install() {
@@ -147,10 +155,10 @@ install() {
     echo -en "You are about to start the system build, do you want to process? "
     confirm
 
-    get_cores
+    get_opts
 
     echo -e "\nBuilding the system...\n"
-    sudo nixos-rebuild switch --flake .#$hostname --cores $cores
+    sudo nixos-rebuild switch --flake .#$hostname --cores $cores --max-jobs $max_jobs
 }
 
 restart() {
