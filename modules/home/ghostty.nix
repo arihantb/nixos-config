@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  host,
-  ...
-}:
+{ inputs, ... }:
 let
   ghostty = inputs.ghostty.packages.x86_64-linux.default;
 in
@@ -13,7 +8,7 @@ in
   xdg.configFile."ghostty/config".text = ''
     # Font
     font-family = "Maple Mono"
-    font-size = ${if (host == "laptop") then "16" else "17"}
+    font-size = "16"
     font-feature = calt
     font-feature = ss03
 

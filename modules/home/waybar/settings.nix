@@ -1,4 +1,4 @@
-{ host, ... }:
+{ ... }:
 let
   custom = {
     font = "Maple Mono";
@@ -45,15 +45,16 @@ in
       "custom/notification"
     ];
     clock = {
+      interval = 1;
       calendar = {
         format = {
           today = "<span color='#98971A'><b>{}</b></span>";
         };
       };
-      format = "  {:%h:%M:%s}";
+      format = "  {:%I:%M:%S %p}";
       tooltip = "true";
       tooltip-format = "<tt><small>{calendar}</small></tt>";
-      format-alt = "  {:%d-%mmm-%Y}";
+      format-alt = "  {:%d %b, %Y}";
     };
     "hyprland/workspaces" = {
       active-only = false;
@@ -108,7 +109,7 @@ in
     };
     tray = {
       icon-size = 20;
-      spacing = 8;
+      spacing = 10;
     };
     pulseaudio = {
       format = "{icon} {volume}%";

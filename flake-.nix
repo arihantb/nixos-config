@@ -1,5 +1,5 @@
 {
-  description = "${username}'s NixOS Configuration";
+  description = "NixOS Configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -24,8 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     yazi-plugins = {
@@ -46,6 +44,7 @@
     { nixpkgs, self, ... }@inputs:
     let
       username = "${username}";
+      hostname = "${hostname}";
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
@@ -59,7 +58,8 @@
           inherit system;
           modules = [ ./hosts/${hostname}/configuration.nix ];
           specialArgs = {
-            host = "${hostname}";
+            hostname = "${hostname}";
+            version = "25.05";
             inherit self inputs username;
           };
         };

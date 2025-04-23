@@ -1,27 +1,21 @@
-{
-  inputs,
-  nixpkgs,
-  self,
-  username,
-  host,
-  ...
-}:
+{ ... }:
 {
   imports = [
+    ./bluetooth.nix
     ./bootloader.nix
-    ./flatpak.nix
+    ./graphics.nix
     ./hardware.nix
     ./network.nix
     ./nh.nix
-    ./nvidia.nix
-    ./pipewire.nix
     ./program.nix
     ./security.nix
     ./services.nix
-    ./steam.nix
+    ./sound.nix
+    # ./swap.nix
     ./system.nix
     ./user.nix
-    ./virtualization.nix
+    # ./virtualisation.nix
+    # ./vpn.nix
     ./wayland.nix
     ./xserver.nix
   ];

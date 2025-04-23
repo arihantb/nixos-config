@@ -1,9 +1,11 @@
 {
-  description = "arihant's NixOS Configuration";
+  description = "NixOS Configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
+
+    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
@@ -23,8 +25,6 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
@@ -46,6 +46,7 @@
     { nixpkgs, self, ... }@inputs:
     let
       username = "arihant";
+      hostname = "nixos";
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
@@ -55,12 +56,13 @@
     in
     {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        ${hostname} = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/nixos/configuration.nix ];
+          modules = [ ./hosts/${hostname}/configuration.nix ];
           specialArgs = {
-            host = "nixos";
-            inherit self inputs username;
+            hostname = "${hostname}";
+            version = "25.05";
+            inherit self inputs system username;
           };
         };
       };

@@ -1,55 +1,61 @@
+/**
+  This configuration sets up Git with personalized settings.
+*/
+
 { pkgs, ... }:
 {
   programs.git = {
+    # Enables the Git.
     enable = true;
 
+    # Sets the global Git username.
     userName = "arihantb";
+
+    # Sets the global Git email.
     userEmail = "arihantbedagkar@gmail.com";
 
     extraConfig = {
+      # Default branch name on new repo.
       init.defaultBranch = "main";
+
+      # Stores credentials in plain text.
       credential.helper = "store";
+
+      # Shows base version during merge conflicts.
       merge.conflictstyle = "diff3";
+
+      # Uses default color scheme for moved lines.
       diff.colorMoved = "default";
     };
 
     delta = {
+      # A better pager for Git.
       enable = true;
+
       options = {
+        # Show line numbers in diffs.
         line-numbers = true;
+
+        # Side-by-side diff layout.
         side-by-side = true;
+
+        # Fancy diff formatting.
         diff-so-fancy = true;
+
+        # Keyboard navigation for diff hunks.
         navigate = true;
       };
     };
   };
 
-  home.packages = [ pkgs.gh ]; # pkgs.git-lfs
+  # Config for lazygit.
+  xdg.configFile."lazygit/config.yml".text = ''
+    gui:
+      border: single
+  '';
 
-  programs.zsh.shellAliases = {
-    g = "lazygit";
-    gf = "onefetch --number-of-file-churns 0 --no-color-palette";
-    ga = "git add";
-    gaa = "git add --all";
-    gs = "git status";
-    gb = "git branch";
-    gm = "git merge";
-    gd = "git diff";
-    gpl = "git pull";
-    gplo = "git pull origin";
-    gps = "git push";
-    gpso = "git push origin";
-    gpst = "git push --follow-tags";
-    gcl = "git clone";
-    gc = "git commit";
-    gcm = "git commit -m";
-    gcma = "git add --all && git commit -m";
-    gtag = "git tag -ma";
-    gch = "git checkout";
-    gchb = "git checkout -b";
-    glog = "git log --oneline --decorate --graph";
-    glol = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'";
-    glola = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all";
-    glols = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat";
-  };
+  home.packages = with pkgs; [
+    # TUI for Git commands.
+    lazygit
+  ];
 }
