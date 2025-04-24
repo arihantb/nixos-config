@@ -49,14 +49,6 @@ let
       hash = "sha256-CQVtMdt/fZcNIbH/KybJixnLqCsz5iF1U0k+GfL65Ok=";
     };
   };
-  ziglang.vscode-zig = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-    mktplcRef = {
-      name = "vscode-zig";
-      publisher = "ziglang";
-      version = "0.6.5";
-      hash = "sha256-eFfucWSioF1w4veoO8VAFNi5q2g9JZbZu+NEOuuyHtM=";
-    };
-  };
 in
 {
   programs.vscode = {
@@ -72,9 +64,6 @@ in
         llvm-vs-code-extensions.vscode-clangd
         # OCaml
         # ocamllabs.ocaml-platform
-        # Zig
-        # ziglang.vscode-zig
-        ziglang.vscode-zig
 
         # Color theme
         jdinhlife.gruvbox
@@ -199,14 +188,6 @@ in
           "--clang-tidy"
           "--inlay-hints=false"
         ];
-
-        # Zig
-        "zig.initialSetupDone" = true;
-        "zig.checkForUpdate" = false;
-        "zig.zls.path" = "zls";
-        "zig.path" = "zig";
-        "zig.revealOutputChannelOnFormattingError" = false;
-        "zig.zls.enableInlayHints" = false;
 
         "nix.serverPath" = "nixd";
         "nix.enableLanguageServer" = true;

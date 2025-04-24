@@ -12,17 +12,10 @@
 
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
     hyprland.url = "github:hyprwm/Hyprland";
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    spicetify-nix = {
-      url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -32,14 +25,6 @@
       url = "github:yazi-rs/plugins";
       flake = false;
     };
-
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
-
-    zig.url = "github:mitchellh/zig-overlay";
-
-    nvf.url = "github:notashelf/nvf";
   };
 
   outputs =

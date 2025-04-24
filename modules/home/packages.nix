@@ -43,10 +43,6 @@
     gnumake
     llvmPackages_20.clang-tools
 
-    # Zig
-    # inputs.zig.packages.${system}.master
-    # zls
-
     # Python
     python3
     python312Packages.ipython
