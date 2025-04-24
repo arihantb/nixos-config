@@ -9,9 +9,6 @@
       # Path to the regular swap file.
       device = "/var/swap/swapfile";
 
-      # Size of the swap file (32GB).
-      size = 32 * 1024;
-
       # Lower priority than zram.
       # Used when zram is full or under pressure.
       priority = 10;

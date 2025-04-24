@@ -97,10 +97,17 @@ create_directories() {
     mkdir -p ~/Music
     mkdir -p ~/Documents
     mkdir -p ~/Pictures/wallpapers/others
+
+    echo -en "\nSetting up swap space\n"
+    mkdir -p /var/swap/
+    sudo fallocate -l 8G /var/swap/swapfile > /dev/null 2>&1
+    sudo chmod 600 /var/swap/swapfile > /dev/null 2>&1
+    sudo mkswap /var/swap/swapfile > /dev/null 2>&1
+    echo -en "Swap space sucessfully created!\n"
 }
 
 copy_wallpapers() {
-    echo -e "Copying all ${MAGENTA}wallpapers${NORMAL}"
+    echo -e "\nCopying all ${MAGENTA}wallpapers${NORMAL}"
     cp -r wallpapers/wallpaper.png ~/Pictures/wallpapers
     cp -r wallpapers/otherWallpaper/gruvbox/* ~/Pictures/wallpapers/others/
     cp -r wallpapers/otherWallpaper/nixos/* ~/Pictures/wallpapers/others/
@@ -122,11 +129,11 @@ get_default_conf() {
 
 get_opts() {
     max_cores=$(nproc --all)
-    echo -en "Enter the number of cores to use (1-$max_cores). (${GREEN}less cores${NORMAL}: slow but sufficient RAM, ${RED}more cores${NORMAL}: fast but may overflow RAM): "
+    echo -en "\nEnter the number of cores to use (1-$max_cores). (${GREEN}less cores${NORMAL}: slow but sufficient RAM, ${RED}more cores${NORMAL}: fast but may overflow RAM): "
     safe_read cores
 
     if ! [[ "$cores" =~ ^[0-9]+$ ]]; then
-        echo "Please enter a valid number."
+        echo -e "Please enter a valid number."
         reset
         exit 1
     fi
@@ -174,7 +181,7 @@ install() {
     get_opts
 
     echo -e "\nBuilding the system...\n"
-    sudo nixos-rebuild switch --flake .#$hostname --cores $cores --max-jobs $max_jobs
+    sudo nixos-rebuild switch --flake .#$hostname --upgrade-all --cores $cores --max-jobs $max_jobs
 }
 
 restart() {

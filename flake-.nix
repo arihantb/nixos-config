@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
 
+    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
+
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
 
@@ -60,7 +62,7 @@
           specialArgs = {
             hostname = "${hostname}";
             version = "25.05";
-            inherit self inputs username;
+            inherit self inputs system username;
           };
         };
       };

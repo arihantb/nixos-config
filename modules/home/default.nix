@@ -8,19 +8,15 @@
     ./discord/discord.nix
     ./fastfetch/fastfetch.nix
     ./fzf.nix
-    # ./ghostty.nix
     ./git.nix
     ./gtk.nix
     ./hyprland
     ./hyprlock/hyprlock.nix
     ./kitty.nix
-    # ./micro.nix
-    # ./nemo.nix
     ./nvim.nix
     ./obsidian.nix
     ./p10k/p10k.nix
     ./packages.nix
-    # ./retroarch.nix
     ./rofi.nix
     ./scripts/scripts.nix
     ./starship.nix
