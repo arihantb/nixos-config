@@ -37,7 +37,6 @@ confirm() {
 
 create_files() {
     cp ./flake-.nix ./flake.nix
-    cp ./modules/home/audacious-.nix ./modules/home/audacious.nix
 }
 
 print_header() {
@@ -71,7 +70,6 @@ get_username() {
 
 set_username() {
     sed -i -e "s/\${username}/${username}/g" ./flake.nix
-    sed -i -e "s/\${username}/${username}/g" ./modules/home/audacious.nix
 }
 
 get_host() {
@@ -112,10 +110,10 @@ get_default_conf() {
     echo -e "Copying ${MAGENTA}/etc/nixos/hardware-configuration.nix${NORMAL} to ${MAGENTA}./hosts/${hostname}/${NORMAL}\n"
     mkdir -p hosts/${hostname}
     cp /etc/nixos/hardware-configuration.nix hosts/${hostname}/hardware-configuration.nix
-    
+
     # Mounting ESP at /boot/efi instead of /boot: GRUB only
-    sed -i -e "s/fileSystems\.\"/boot\"/fileSystems\.\"/boot/efi\"/g" ./hosts/${hostname}/hardware-configuration.nix
-    
+    sed -i -e "s/fileSystems\.\"\/boot\"/fileSystems\.\"\/boot\/efi\"/g" ./hosts/${hostname}/hardware-configuration.nix
+
     cp hosts/default.nix hosts/${hostname}/configuration.nix
 
     # File Not Found Error Fix

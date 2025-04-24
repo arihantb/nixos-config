@@ -16,8 +16,6 @@
     treefmt                           # project formatter
     tldr
     todo                              # cli todo list
-    toipe                             # typing test in the terminal
-    ttyper                            # cli typing test
     unzip
     valgrind                          # c memory analyzer
     wavemon                           # monitoring for wireless network devices
@@ -29,9 +27,6 @@
     xxd
 
     ## CLI 
-    cbonsai                           # terminal screensaver
-    cmatrix
-    pipes                             # terminal screensaver
     sl
     tty-clock                         # cli clock
 
@@ -42,19 +37,13 @@
     file-roller
     filezilla
     gimp
-    gnome-calculator                  # calculator
     gnome-disk-utility
-    ldtk                              # 2D level editor
     libreoffice
-    mission-center                    # GUI resources monitor
     nix-prefetch-github
     obs-studio
     pavucontrol                       # pulseaudio volume controle (GUI)
-    pitivi                            # video editing
-    soundwireserver
     spotify
     thunderbird
-    tiled                             # tile map editor
     vlc
     wineWowPackages.wayland
     winetricks

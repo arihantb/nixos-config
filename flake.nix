@@ -5,8 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
 
-    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
-
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
 
@@ -56,13 +54,13 @@
     in
     {
       nixosConfigurations = {
-        ${hostname} = nixpkgs.lib.nixosSystem {
+        nixos = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/${hostname}/configuration.nix ];
+          modules = [ ./hosts/nixos/configuration.nix ];
           specialArgs = {
-            hostname = "${hostname}";
+            hostname = "nixos";
             version = "25.05";
-            inherit self inputs system username;
+            inherit self inputs username;
           };
         };
       };

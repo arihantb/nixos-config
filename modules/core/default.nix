@@ -11,7 +11,7 @@
     ./security.nix
     ./services.nix
     ./sound.nix
-    # ./swap.nix
+    ./swap.nix
     ./system.nix
     ./user.nix
     # ./virtualisation.nix
