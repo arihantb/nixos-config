@@ -13,11 +13,9 @@
     # Enable Hyprland as the window manager under Home Manager.
     enable = true;
 
-    # Uses the system-level Hyprland package.
-    package = null;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
-    # Uses system-defined portal package.
-    portalPackage = null;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 
     xwayland = {
       # Enable support for legacy X11 apps inside Wayland (via XWayland).
@@ -26,6 +24,14 @@
 
     # Ensure Hyprland is launched and managed via systemd.
     systemd.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+    ];
   };
 
   home.packages = with pkgs; [

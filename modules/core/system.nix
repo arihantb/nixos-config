@@ -55,6 +55,11 @@
   # System language/locale.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # Extra locale settings.
+  i18n.extraLocaleSettings = {
+    LC_ALL = "en_US.UTF-8";
+  };
+
   # Allows installing unfree packages (e.g., Chrome, Steam).
   nixpkgs.config.allowUnfree = true;
 

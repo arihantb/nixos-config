@@ -7,7 +7,7 @@
 
     font = {
       name = "Maple Mono";
-      size = 16;
+      size = 12;
     };
 
     extraConfig = ''

@@ -20,11 +20,8 @@
     ./rofi.nix
     ./scripts/scripts.nix
     ./starship.nix
-    ./stremio.nix
-    ./swaylock.nix
     ./swaync/swaync.nix
     ./swayosd.nix
-    ./vod.nix
     ./vscodium.nix
     ./waybar
     ./waypaper.nix

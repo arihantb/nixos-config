@@ -4,6 +4,9 @@
 
 { pkgs, username, ... }:
 {
+  # Enable dconf (System Management Tool), libvirtd works better.
+  programs.dconf.enable = true;
+
   users.users.${username}.extraGroups = [
     # Grants user access to libvrt virtualisation features.
     "libvirtd"
@@ -51,11 +54,12 @@
     # GUI tool to manage virtual machines (VMs).
     virt-manager
 
+    virt-viewer
+
     # SPICE gues tools for Windows VMs (better input, display, etc.).
     win-spice
 
     # VirtIO drivers for Windows VMs (for better performance).
     win-virtio
-
   ];
 }

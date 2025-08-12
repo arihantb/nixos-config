@@ -24,7 +24,7 @@
       font: "Maple Mono Bold 16";
       show-icons: true;
       icon-theme: "Papirus-dark";
-      terminal: "ghostty";
+      terminal: "kitty";
       drun-display-format: "{icon} {name}";
       location: 0;
       disable-history: true;
@@ -57,7 +57,7 @@
     }
 
     inputbar {
-      children: [prompt,entry];
+      children: [entry];
       background-color: @bg-col-light;
       border-radius: 5px;
       padding: 0px;

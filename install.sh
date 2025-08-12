@@ -99,7 +99,7 @@ create_directories() {
     mkdir -p ~/Pictures/wallpapers/others
 
     echo -en "\nSetting up swap space\n"
-    mkdir -p /var/swap/
+    sudo mkdir -p /var/swap/
     sudo fallocate -l 8G /var/swap/swapfile > /dev/null 2>&1
     sudo chmod 600 /var/swap/swapfile > /dev/null 2>&1
     sudo mkswap /var/swap/swapfile > /dev/null 2>&1

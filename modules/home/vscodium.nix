@@ -81,7 +81,7 @@ in
         esbenp.prettier-vscode
         # sort lines
         tyriar.sort-lines
-        # todo highlight
+        # highlight todo
         wayou.vscode-todo-highlight
         # visualize colors
         circlecodesolution.ccs-flutter-color

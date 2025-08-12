@@ -13,6 +13,7 @@ let
   runbg = pkgs.writeShellScriptBin "runbg" (builtins.readFile ./scripts/runbg.sh);
   screenshot = pkgs.writeScriptBin "screenshot" (builtins.readFile ./scripts/screenshot.sh);
   show-keybinds = pkgs.writeScriptBin "show-keybinds" (builtins.readFile ./scripts/keybinds.sh);
+  toggle_float = pkgs.writeScriptBin "toggle_float" (builtins.readFile ./scripts/toggle_float.sh);
   toggle_waybar = pkgs.writeScriptBin "toggle_waybar" (builtins.readFile ./scripts/toggle_waybar.sh);
 in
 {
@@ -43,6 +44,9 @@ in
 
     # Show Hyprland key bindings.
     show-keybinds
+
+    # Float the current window in the middle of the screen.
+    toggle_float
 
     # Show/Hide Waybar.
     toggle_waybar

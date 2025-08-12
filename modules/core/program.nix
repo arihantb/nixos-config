@@ -59,5 +59,10 @@
         "--expose-wayland"
       ];
     };
+
+    obs-studio.package = (pkgs.obs-studio.override {
+      # Adds Nvidia support to OBS Studio.
+      cudaSupport = true;
+    });
   };
 }
